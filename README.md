@@ -10,15 +10,13 @@ Archivo CSV con datos de logs en formato CSV con encabezado, ubicado en ./data (
 Puerto 10000 libre para mapear HiveServer2.
 
 ## Estructura de Archivos
-lua
-Copy
-Edit
+'''estructura
 .
 ├── docker-compose.yml
 ├── data/
 │   └── logs.csv      <-- archivo CSV con los datos (encabezado en primera línea)
 └── create_table.hql  <-- (opcional) script para crear la tabla
-
+'''
 ## Paso 1: Preparar los Datos
 Coloca tu archivo CSV dentro de la carpeta ./data junto al archivo docker-compose.yml.
 Ejemplo de archivo logs.csv:
@@ -27,7 +25,7 @@ Ejemplo de archivo logs.csv:
 ip,timestamp,request,status_code,response_size,referrer,user_agent
 192.168.1.1,2025-06-17T12:34:56Z,"GET /index.html",200,1024,"http://example.com","Mozilla/5.0"
 ...
-
+'''
 Nota: la tabla usa log_timestamp en lugar de timestamp, asegúrate que el CSV tenga la columna timestamp igual, ya que mapeamos ese dato a log_timestamp en la tabla.
 
 ## Paso 2: Levantar el Contenedor Hive
