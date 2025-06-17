@@ -1,15 +1,15 @@
-Prueba de Caso Hive con Tabla Externa web_logs
-Descripción
+# Prueba de Caso Hive con Tabla Externa web_logs
+## Descripción
 Este proyecto monta un servicio Hive en Docker y crea una tabla externa web_logs que lee datos CSV desde un volumen local. Se incluye una serie de consultas HiveQL representativas para validar los datos.
 
-Requisitos Previos
+## Requisitos Previos
 Docker y Docker Compose instalados en tu sistema.
 
 Archivo CSV con datos de logs en formato CSV con encabezado, ubicado en ./data (mismo nivel donde está el docker-compose.yml).
 
 Puerto 10000 libre para mapear HiveServer2.
 
-Estructura de Archivos
+## Estructura de Archivos
 lua
 Copy
 Edit
@@ -18,7 +18,8 @@ Edit
 ├── data/
 │   └── logs.csv      <-- archivo CSV con los datos (encabezado en primera línea)
 └── create_table.hql  <-- (opcional) script para crear la tabla
-Paso 1: Preparar los Datos
+
+## Paso 1: Preparar los Datos
 Coloca tu archivo CSV dentro de la carpeta ./data junto al archivo docker-compose.yml.
 Ejemplo de archivo logs.csv:
 
@@ -30,7 +31,7 @@ ip,timestamp,request,status_code,response_size,referrer,user_agent
 ...
 Nota: la tabla usa log_timestamp en lugar de timestamp, asegúrate que el CSV tenga la columna timestamp igual, ya que mapeamos ese dato a log_timestamp en la tabla.
 
-Paso 2: Levantar el Contenedor Hive
+## Paso 2: Levantar el Contenedor Hive
 Ejecuta el siguiente comando para iniciar Hive Server:
 
 bash
@@ -39,7 +40,7 @@ Edit
 docker-compose up -d --build
 Esto hará que el contenedor hive-server esté corriendo y exponga HiveServer2 en el puerto 10000.
 
-Paso 3: Acceder al CLI de Hive (opcional)
+## Paso 3: Acceder al CLI de Hive (opcional)
 Si quieres interactuar directamente con Hive dentro del contenedor:
 
 bash
@@ -52,7 +53,8 @@ bash
 Copy
 Edit
 hive
-Paso 4: Crear la Tabla Externa
+
+## Paso 4: Crear la Tabla Externa
 Dentro del CLI de Hive o desde tu cliente JDBC/Beeline, ejecuta la creación de tabla:
 
 sql
@@ -75,34 +77,39 @@ WITH SERDEPROPERTIES (
 STORED AS TEXTFILE
 LOCATION '/data'
 TBLPROPERTIES ("skip.header.line.count"="1");
-Paso 5: Ejecutar Consultas Representativas
+
+## Paso 5: Ejecutar Consultas Representativas
 Ejemplos de consultas para validar los datos:
 
-Cantidad total de registros:
+### Cantidad total de registros:
 
 sql
 Copy
 Edit
 SELECT COUNT(*) FROM web_logs;
-Códigos de estado más comunes:
+
+### Códigos de estado más comunes:
 
 sql
 Copy
 Edit
 SELECT status_code, COUNT(*) AS total FROM web_logs GROUP BY status_code ORDER BY total DESC;
-Promedio de tamaño de respuesta:
+
+### Promedio de tamaño de respuesta:
 
 sql
 Copy
 Edit
 SELECT AVG(response_size) FROM web_logs;
-Filtrar solo errores 500:
+
+### Filtrar solo errores 500:
 
 sql
 Copy
 Edit
 SELECT * FROM web_logs WHERE status_code = 500;
-Agrupar por user agent:
+
+### Agrupar por user agent:
 
 sql
 Copy
