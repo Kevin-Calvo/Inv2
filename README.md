@@ -10,13 +10,14 @@ Archivo CSV con datos de logs en formato CSV con encabezado, ubicado en ./data (
 Puerto 10000 libre para mapear HiveServer2.
 
 ## Estructura de Archivos
-'''estructura
+```plaintext
 .
 ├── docker-compose.yml
 ├── data/
 │   └── logs.csv      <-- archivo CSV con los datos (encabezado en primera línea)
 └── create_table.hql  <-- (opcional) script para crear la tabla
-'''
+```
+
 ## Paso 1: Preparar los Datos
 Coloca tu archivo CSV dentro de la carpeta ./data junto al archivo docker-compose.yml.
 Ejemplo de archivo logs.csv:
