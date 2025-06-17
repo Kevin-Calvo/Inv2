@@ -23,12 +23,11 @@ Edit
 Coloca tu archivo CSV dentro de la carpeta ./data junto al archivo docker-compose.yml.
 Ejemplo de archivo logs.csv:
 
-csv
-Copy
-Edit
+```csv
 ip,timestamp,request,status_code,response_size,referrer,user_agent
 192.168.1.1,2025-06-17T12:34:56Z,"GET /index.html",200,1024,"http://example.com","Mozilla/5.0"
 ...
+
 Nota: la tabla usa log_timestamp en lugar de timestamp, asegúrate que el CSV tenga la columna timestamp igual, ya que mapeamos ese dato a log_timestamp en la tabla.
 
 ## Paso 2: Levantar el Contenedor Hive
