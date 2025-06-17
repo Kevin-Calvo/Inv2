@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  hive-server:
+    image: apache/hive:4.0.0-beta-1
+    container_name: hive-server
+    ports:
+      - "10000:10000"
+    volumes:
+      - ./data:/data
+    environment:
+      SERVICE_NAME: hiveserver2
+      IS_RESOURCEMANAGER: "false"
+      IS_NAMENODE: "false"
